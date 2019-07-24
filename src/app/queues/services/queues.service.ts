@@ -10,14 +10,16 @@ import { environment as env } from '../../../environments/environment';
 export class QueuesService {
   clickCounter = 0;
 
+  url: string = "/api";
+
   constructor(private req: RequestService) { }
 
   getUserData(): Observable<IUser[]> {
-    return this.req.get<IUser[]>(env.url+"/get");
+    return this.req.get<IUser[]>(this.url+"/get");
   }
 
   getOne(user: IUser): Observable<IUser[]> {
-    return this.req.getOne<IUser[]>(env.url+"/get-one", user);
+    return this.req.getOne<IUser[]>(this.url+"/get-one", user);
   }
 
   postUserData<Iuser>(url: string, user: IUser): Observable<Iuser[]> {
@@ -27,14 +29,14 @@ export class QueuesService {
 
   deleteUserData<Iuser>(user: IUser): Observable<Iuser[]> {
     return this.req.delete<Iuser[]>(
-      env.url+"/delete",
+      this.url+"/delete",
       { id: user._id }
     );
   }
 
   updateGame<Iuser>(currentGame: IUser, newGame: IUser): Observable<Iuser[]>{
    return this.req.update<Iuser[]>(
-     env.url+"/update",
+     this.url+"/update",
      {currentGame, newGame}
      
    ) 
